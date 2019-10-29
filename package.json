@@ -1,0 +1,23 @@
+{
+  "name": "lab1",
+  "version": "1.0.0",
+  "description": "Simple site to view weather",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile" : "lessc styles.less > styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ShwarzeWolf/WLab1.git"
+  },
+  "author": "Christina Sharaeva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShwarzeWolf/WLab1/issues"
+  },
+  "homepage": "https://github.com/ShwarzeWolf/WLab1#readme",
+  "devDependencies": {
+    "less": "^3.10.3"
+  }
+}
