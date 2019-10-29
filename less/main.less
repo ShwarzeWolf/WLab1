@@ -1,3 +1,69 @@
-.content {
-  background-color: #cbe0fd;
+@blue: #99C2FC;
+@red: red;
+.page{
+  width: 800px;
+  height: 400px;
+  background-color: @blue;
+  margin: 10vh auto;
+  padding: 15px;
+  font-family: Courier sans-serif;
+}
+
+.content-header{
+  padding: 15px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.content{
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+
+.warning{
+  visibility: hidden;
+  color: @red;
+  text-align: center;
+}
+
+.search{
+  padding: 15px;
+  text-align: center;
+  grid-column: 1 / span 3;
+  grid-row: 1;
+}
+
+.search-button{
+  height: 25px;
+  border-radius: 5px;
+  border: none;
+  background-color: @blue;
+  font-family: Courier sans-serif;
+  font-size: 15px;
+}
+
+.name{
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 40px;
+}
+.temp{
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 30px;
+}
+.weather{
+  grid-column: 1;
+  grid-row: 3;
+}
+.wind{
+  grid-column: 2;
+  grid-row: 3;
+}
+.humidity{
+  grid-column: 3;
+  grid-row: 3;
 }

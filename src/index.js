@@ -1,26 +1,11 @@
-function searchCity() {
-    let content = document.getElementById("content");
-    let city = document.getElementById("cityName").value;
-
-    let url = "https://api.openweathermap.org/data/2.5/weather?q=" +
-        city +
-        "&appid=f51bcfb8b207b0ef58ce10da80b90477";
-
-    fetch(url)
-        .then(function (response) {
-            if (response.ok) {
-                return response.json()
-            } else {
-                clearForm(content);
-            }
-        })
-        .then(function (json) {
-            drawData(content, json);
-        });
-
+function clearForm(content) {
+    let search = document.getElementById("search");
+    content.innerText = "";
+    content.appendChild(search);
 }
 
-function drawData(content, json){
+function drawData(content, json, warning) {
+
     clearForm(content);
 
     let template = '<div class="name" id="name">{{name}}</div>\n' +
@@ -30,13 +15,36 @@ function drawData(content, json){
         '    <div class="humidity" id="humidity">Humidity:</br> {{main.humidity}}%</div>';
 
     if (json) {
+        warning.style.visibility = "hidden";
         content.innerHTML += Mustache.render(template, json);
     }
 }
 
-function clearForm(content) {
-    let search = document.getElementById("search");
-    content.innerText = "";
-    content.appendChild(search);
+function getData() {
+    let content = document.getElementById("content");
+    let warning = document.getElementById("warning");
+    let city = document.getElementById("cityName").value;
+
+    let url = "https://api.openweathermap.org/data/2.5/weather?q="
+        + city
+        + "&units=metric"
+        + "&appid=f51bcfb8b207b0ef58ce10da80b90477";
+
+    fetch(url)
+        .then(function (response) {
+            if (response.ok) {
+                return response.json()
+            } else {
+                clearForm(content);
+                warning.style.visibility = "visible";
+            }
+        })
+        .then(function (json) {
+            drawData(content, json, warning);
+        });
+
 }
+
+
+
 
