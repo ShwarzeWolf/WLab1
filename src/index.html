@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Lab1</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
-<div class="main-content">
+<div class="content" id="content">
     <header>Find out the weather forecast!</header>
-    <form class="searchForm" id="search" onsubmit="searchCity()">
+    <form class="searchForm" id="search">
         <input type="text" id="cityName" placeholder="City name" />
-        <input type="button" id="searchButton" value="Search">
+        <input type="button" id="searchButton" value="Search" onclick="searchCity()">
     </form>
 </div>
-<div class="warning" id="warning">Could not find a city</div>
 </body>
 </html>
