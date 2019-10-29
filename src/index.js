@@ -10,6 +10,8 @@ function searchCity() {
         .then(function (response) {
             if (response.ok) {
                 return response.json()
+            } else {
+                clearForm(content);
             }
         })
         .then(function (json) {
@@ -19,6 +21,7 @@ function searchCity() {
 }
 
 function drawData(content, json){
+    clearForm(content);
 
     let template = '<div class="name" id="name">{{name}}</div>\n' +
         '    <div class="temp" id="temp">{{main.temp}}°C</div>\n' +
@@ -29,5 +32,11 @@ function drawData(content, json){
     if (json) {
         content.innerHTML += Mustache.render(template, json);
     }
+}
+
+function clearForm(content) {
+    let search = document.getElementById("search");
+    content.innerText = "";
+    content.appendChild(search);
 }
 
