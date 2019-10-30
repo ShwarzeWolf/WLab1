@@ -1,5 +1,7 @@
 @blue: #99C2FC;
-@red: red;
+@button-color: #4cabff;
+@red: #ff0c09;
+
 .page{
   width: 800px;
   height: 400px;
@@ -20,11 +22,10 @@
   display: grid;
   grid-gap: 5px;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
 }
 
 .warning{
-  visibility: hidden;
   color: @red;
   text-align: center;
 }
@@ -40,7 +41,7 @@
   height: 25px;
   border-radius: 5px;
   border: none;
-  background-color: @blue;
+  background-color: @button-color;
   font-family: Courier sans-serif;
   font-size: 15px;
 }
