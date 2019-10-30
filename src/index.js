@@ -22,16 +22,12 @@ function createErrorMessage(content){
 }
 
 function drawData(content, json) {
-    let template = '<div class="name" id="name">{{name}}</div>\n' +
-        '    <div class="temp" id="temp">{{main.temp}}°C</div>\n' +
-        '    <div class="weather" id="weather">{{weather.0.main}}</div>\n' +
-        '    <div class="wind" id="wind">Wind:</br> {{wind.speed}} meter/sec</div>\n' +
-        '    <div class="humidity" id="humidity">Humidity:</br> {{main.humidity}}%</div>';
-
-    if (json) {
+    $.get('template.mst', function(template) {
+        var rendered = Mustache.render(template, json);
         content.innerHTML += Mustache.render(template, json);
-    }
+    });
 }
+
 
 function getData(city) {
     let url = "https://api.openweathermap.org/data/2.5/weather?q="

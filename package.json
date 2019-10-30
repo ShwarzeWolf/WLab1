@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile" : "lessc ./less/main.less > ./css/styles.css"
+    "compile": "lessc ./less/main.less > ./css/styles.css"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "homepage": "https://github.com/ShwarzeWolf/WLab1#readme",
   "devDependencies": {
     "less": "^3.10.3"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1"
   }
 }
