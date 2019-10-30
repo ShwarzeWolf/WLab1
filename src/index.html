@@ -5,7 +5,6 @@
     <title>Lab1</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
-    <script src="index.js"></script>
 </head>
 <body>
 <div class="page">
@@ -13,12 +12,13 @@
     Type city name to search info:
 </div>
 
-<div class="content" id="content">
-    <form class="search" id="search" onsubmit="getWeatherForecast(event); return false">
+
+    <form class="search" id="search">
         <input type="text" placeholder="City Name" id="cityName" class="inputForm">
-        <input type="submit" class="search-button" id="search-button" value="Search">
+        <input type="submit" class="search-button" id="search-button">
     </form>
-</div>
+
+    <div class="content" id="content"></div>
 
     <script id="dataTemplate"  type="text/html">
         <div class="name" id="name"> {{name}} </div>
@@ -32,6 +32,7 @@
         <div class="warning" id="warning">{{message}} </div>
     </script>
 
+    <script src="index.js"></script>
 </div>
 </body>
 </html>

@@ -1,7 +1,10 @@
+document.getElementById("search").addEventListener("submit", getWeatherForecast);
+
 function getWeatherForecast(event){
+    event.preventDefault();
     let content = document.getElementById("content");
 
-    clearForm(content);
+     clearForm(content);
     let city = event.target['cityName'].value;
 
     getData(city)
@@ -34,7 +37,5 @@ function getData(city) {
 }
 
 function clearForm(content) {
-    let search = document.getElementById("search");
     content.innerText = "";
-    content.appendChild(search);
 }
