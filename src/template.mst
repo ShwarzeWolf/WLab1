@@ -1,5 +1,0 @@
-<div class="name" id="name">{{name}}</div>
-<div class="temp" id="temp">{{main.temp}}°C</div>
-<div class="weather" id="weather">{{weather.0.main}}</div>
-<div class="wind" id="wind">Wind:<br> {{wind.speed}} meter/sec</div>
-<div class="humidity" id="humidity">Humidity:<br> {{main.humidity}}%</div>

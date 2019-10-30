@@ -5,7 +5,6 @@
     <title>Lab1</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
-    <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="index.js"></script>
 </head>
 <body>
@@ -20,6 +19,19 @@
         <input type="submit" class="search-button" id="search-button" value="Search">
     </form>
 </div>
+
+    <script id="dataTemplate"  type="text/html">
+        <div class="name" id="name"> {{name}} </div>
+        <div class="temp" id="temp"> {{main.temp}}°C </div>
+        <div class="weather" id="weather"> {{weather.0.main}} </div>
+        <div class="wind" id="wind"> Wind:<br> {{wind.speed}} meter/sec </div>
+        <div class="humidity" id="humidity">Humidity:<br> {{main.humidity}}%</div>
+    </script>
+
+    <script id="errorTemplate" type="text/html">
+        <div class="warning" id="warning">{{message}} </div>
+    </script>
+
 </div>
 </body>
 </html>

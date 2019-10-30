@@ -6,28 +6,22 @@ function getWeatherForecast(event){
 
     getData(city)
         .then((results) => {
-                if (results["cod"] === 200)
-                    drawData(content, results);
-                else
-                    createErrorMessage(content);
+            if (results["cod"] === 200)
+                drawData(content, results);
+            else
+                createErrorMessage(content);
         })
 }
 
 function createErrorMessage(content){
-    let warning = document.createElement("div");
-    warning.className = "warning";
-    warning.innerHTML = "Could not find city name";
-    content.appendChild(warning);
-
+    let template = document.getElementById("errorTemplate").innerHTML;
+    content.innerHTML += Mustache.render(template, {"message" : "Could nor find a sity"});
 }
 
 function drawData(content, json) {
-    $.get('template.mst', function(template) {
-        var rendered = Mustache.render(template, json);
-        content.innerHTML += Mustache.render(template, json);
-    });
+    let template = document.getElementById("dataTemplate").innerHTML;
+    content.innerHTML += Mustache.render(template, json);
 }
-
 
 function getData(city) {
     let url = "https://api.openweathermap.org/data/2.5/weather?q="
@@ -35,8 +29,8 @@ function getData(city) {
         + "&units=metric"
         + "&appid=f51bcfb8b207b0ef58ce10da80b90477";
 
-        return fetch(url)
-            .then((response) => response.json())
+    return fetch(url)
+        .then((response) => response.json())
 }
 
 function clearForm(content) {
@@ -44,7 +38,3 @@ function clearForm(content) {
     content.innerText = "";
     content.appendChild(search);
 }
-
-
-
-
