@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../css/styles.css" />
     <!--Scripts-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
 
     <!--Testing-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/6.2.1/mocha.min.css"/>
@@ -72,7 +74,7 @@
             const formSubmitSpy = sinon.spy(window, "getData");
 
             document.getElementById('search-button').click();
-            expect(formSubmitSpy.calledWithExactly(cityName));
+            expect(formSubmitSpy.calledWith(cityName));
 
             window.getData.restore();
         });
@@ -88,132 +90,112 @@
             window.clearForm.restore();
         });
 
-/*
-        it('should call draw data if fetched data is ok', function(){
+        it('should call draw data if fetched data is ok', function () {
+            let content = document.getElementById("content");
+            let cityName = "Surgut";
+
             const response = fullExample();
+            var getData = sinon.stub();
+            getData.withArgs(cityName).returns(response);
+            const drawData = sinon.spy(window, "drawData");
 
-            sandbox.stub(fetch, 'getData').returns(response);
+            let res = getData(cityName);
+            if (res["cod"] === 200)
+                drawData(content, res);
+            else
+                createErrorMessage(content);
 
-            getData("Surgut")
-                .then((res) => {
-                    expect(res).to.eql(response)
-                })
-        });*/
+            expect(drawData.callCount).to.equal(1);
+
+            window.drawData.restore();
+        });
 
         it('should call drawing error message if fetched data is not ok', function(){
+            let content = document.getElementById("content");
+            let cityName = "datfds";
 
+            const response = badExample();
+            var getData = sinon.stub();
+            getData.withArgs(cityName).returns(response);
+            const createErrorMessage = sinon.spy(window, "createErrorMessage");
+
+            let res = getData(cityName);
+            if (res["cod"] === 200)
+                drawData(content, res);
+            else
+                createErrorMessage(content);
+
+            expect(createErrorMessage.callCount).to.equal(1);
+
+            window.createErrorMessage.restore();
         });
 
         it('should call drawing error message if fetched data is empty', function(){
+            let content = document.getElementById("content");
+            let cityName = "";
 
+            const response = emptyExample();
+            var getData = sinon.stub();
+            getData.withArgs(cityName).returns(response);
+            const createErrorMessage = sinon.spy(window, "createErrorMessage");
+
+            let res = getData(cityName);
+            if (res["cod"] === 200)
+                drawData(content, res);
+            else
+                createErrorMessage(content);
+
+            expect(createErrorMessage.callCount).to.equal(1);
+
+            window.createErrorMessage.restore();
         });
     });
 
     describe("getData", function () {
-        it('checks if weather api was called', function(){});
+        it('checks if weather api was called', function(){
+            const getDataSpy = sinon.spy(window, "getData");
 
-        it('checks if results came from api are ok', function(){});
+            expect(getDataSpy.calledWith("Surgut"));
+            window.getData.restore();
+        });
+
+        it('checks if weather api returned result', function(){
+            const response = getData("Surgut");
+            expect(response.cod === "200");
+        })
     });
 
     describe("createErrorMessage", function(){
-        it ('checks if error template draws correctly', function(){});
+        it ('checks if error template draws correctly', function(){
+            let content = document.getElementById("content");
+            createErrorMessage(content);
+
+            expect(document.getElementById('errorTemplate')).to.exist;
+        });
     });
 
     describe("drawData", function(){
-        it ('checks if data was drawn correctly', function(){});
+        it ('checks if data was drawn correctly', function(){
+                let content = document.getElementById("content");
+                let data = fullExample();
+                drawData(data, content);
+
+                expect(document.getElementById('dataTemplate')).to.exist;
+            });
     });
 
     describe("clearForm", function(){
         it ('checks if data was cleared after calling clearForm function', function(){
+            it ('checks if error template draws correctly', function(){
+                let content = document.getElementById("content");
+                createErrorMessage(content);
+                clearForm(content);
 
+                expect(!((document.getElementById('errorTemplate')).to.exist));
+            });
         });
     })
 
-
-/*
-        it('should successfully return data for Syktyvkar', function (done) {
-            const response = fullExample();
-            const resolved = new Promise((r) => r(response));
-            sandbox.stub(axios, 'get').returns(resolved);
-
-            getCityData("Syktyvkar")
-                .then((res) => {
-                    expect(res).to.eql(response)
-                })
-                .then(done, done);
-        });
-
-        it('should handle the empty request option', function (done) {
-            const response = nothingToGeocodeData();
-            const rejected = new Promise((_, r) => r({ response: response }));
-            sandbox.stub(axios, 'get').returns(rejected);
-
-            getCityData("")
-                .then((res) => {
-                    expect(res).to.eql(response)
-                })
-                .then(done, done);
-        });
-
-        it('should handle the city ​​not found option', function (done) {
-            const response = cityNotFoundData();
-            const rejected = new Promise((_, r) => r({ response: response }));
-            sandbox.stub(axios, 'get').returns(rejected);
-
-            getCityData("sbfjbsdjfbsdjf")
-                .then((res) => {
-                    expect(res).to.eql(response)
-                })
-                .then(done, done);
-        });
-
-        it('should handle the invalid API key option', function (done) {
-            const response = invalidApiKeyData();
-            const rejected = new Promise((_, r) => r({response: response}));
-            sandbox.stub(axios, 'get').returns(rejected);
-
-            getCityData("Syktyvkar")
-                .then((res) => {
-                    expect(res).to.eql(response)
-                })
-                .then(done, done);
-        });
-
-        it('should handle the Network error option', function (done) {
-            const response = networkErrorData();
-            const rejected = new Promise((_, r) => r(networkErrorBody()));
-            sandbox.stub(axios, 'get').returns(rejected);
-
-            getCityData("Syktivkar")
-                .then((res) => {
-                    expect(res).to.eql(response)
-                })
-                .then(done, done);
-        });*/
-
-    /*
-    describe("formatData", function () {
-        it('should work correctly', function () {
-            let testResponse = formatData(dataExample());
-            expect(testResponse).to.eql(formattedResponse());
-        });
-    });
-
-    describe("compileTemplate", function () {
-        it('should return a formatted response if weather.status === 200', function () {
-            let testResponse = compileTemplate(fullExample());
-            expect(testResponse).to.eql(formattedResponse());
-        });
-
-        it('should return error response if weather.status !== 200', function () {
-            let testResponse = compileTemplate(errorExample());
-            expect(testResponse).to.eql(errorResponse());
-        });
-    });
-
-
-
-*/
     mocha.run();
 </script>
 
