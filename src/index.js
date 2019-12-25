@@ -1,10 +1,14 @@
-document.getElementById("search").addEventListener("submit", getWeatherForecast);
+window.onload = () => {
+    document.getElementById("search").addEventListener("submit", event => {
+        event.preventDefault();
+        getWeatherForecast(event);
+    });
+};
 
 function getWeatherForecast(event){
-    event.preventDefault();
     let content = document.getElementById("content");
 
-     clearForm(content);
+    clearForm(content);
     let city = event.target['cityName'].value;
 
     getData(city)
@@ -18,7 +22,7 @@ function getWeatherForecast(event){
 
 function createErrorMessage(content){
     let template = document.getElementById("errorTemplate").innerHTML;
-    content.innerHTML += Mustache.render(template, {"message" : "Could nor find a sity"});
+    content.innerHTML += Mustache.render(template, {"message" : "Could not find a city"});
 }
 
 function drawData(content, json) {

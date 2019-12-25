@@ -1,0 +1,75 @@
+/*const describe = require('mocha').describe;
+const fakeServer = require('sinon').fakeServer;
+const expect = require('chai').expect;
+const chAssert = require('chai').chAssert;
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+const getData = require('./index').getData;
+
+describe('button click', function() {
+    beforeEach(function() {
+        const { window } = new JSDOM(`
+      <!doctype html><html>
+          <button id="search-button" onclick="this.classList.add('Surgut')">
+          </button>
+        </html>`, { runScripts: "dangerously" });
+        global.window = window;
+    });
+
+    it(`sensors while user clicks`, function() {
+        const triggerElement = window.document.getElementById('search-button');
+        triggerElement.click();
+        expect(triggerElement.classList.contains('Surgut')).to.equal(true);
+    });
+});
+
+
+describe("Getting weather forecast from empty response", function () {
+    beforeEach(function() {
+        const { window } = new JSDOM(`
+      <!doctype html><html>
+          <button id="search-button">
+          </button>
+        </html>`, { runScripts: "dangerously" });
+        global.window = window;
+    });
+
+    it(`sensors does not work on empty request`, function() {
+        const triggerElement = window.document.getElementById('search-button');
+        triggerElement.click();
+        expect(triggerElement.classList.contains('Surgut')).to.equal(false);
+    });
+});
+
+
+describe("Getting weather data from normal response", function () {
+    it("Getting data about Surgut ", function() {
+        getData("Surgut");
+
+        let data = window.document.getElementsByClassName('name')[0];
+        chAssert.equal(data, "Surgut");
+    });
+});
+
+describe('createErrorMessage test', () => {
+    it("400", () => {
+        chAssert.equal(selectErrorMessage({cod: "400"}), "Задан пустой запрос");
+    });
+    it("401", () => {
+        chAssert.equal(selectErrorMessage({cod: "401"}), "Неверный токен приложения");
+    });
+    it("404", () => {
+        chAssert.equal(selectErrorMessage({cod: "404"}), "Город не найден");
+    });
+    it("418", () => {
+        chAssert.equal(selectErrorMessage({cod: "418"}), "Неизвестная ошибка");
+    });
+});
+it('compileResultTemplate test', () => {
+    const compiled = compileResultTemplate(repackData(example()));
+    chAssert.notEqual(compiled, null);
+});
+it('compileErrorTemplate test', () => {
+    const compiled = compileErrorTemplate("Error");
+    chAssert.notEqual(compiled, null);
+});*/

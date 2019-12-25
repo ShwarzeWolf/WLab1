@@ -1,0 +1,15 @@
+
+
+3. data fetched
+4. data proceeded - if everything correct:
+        4.1 data drawed correctly
+    else:
+        4.2 mistake message occurred
+
+
+        3. Data fetch from real api
+        3.1 url creation
+        4. Data fetch fake:
+        -empty (nothing)
+        -normal (elements draw)
+        -fake (mistake occurs)

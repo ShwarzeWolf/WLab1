@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html langsearch-txt="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles.css" />
+    <!--Scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.js"></script>
+
+    <!--Testing-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/6.2.1/mocha.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/6.2.1/mocha.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/4.2.0/chai.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sinon.js/7.5.0/sinon.min.js"></script>
+
+</head>
+<body>
+<div class="page">
+    <div class="content-header" id="header">
+        Type city name to search info:
+    </div>
+
+    <form class="search" id="search">
+        <input type="text" placeholder="City Name" id="cityName" class="inputForm">
+        <input type="submit" class="search-button" id="search-button">
+    </form>
+
+    <div class="content" id="content"></div>
+
+    <script id="dataTemplate"  type="text/html">
+        <div class="name" id="name"> {{name}} </div>
+        <div class="temp" id="temp"> {{main.temp}}°C </div>
+        <div class="weather" id="weather"> {{weather.0.main}} </div>
+        <div class="wind" id="wind"> Wind:<br> {{wind.speed}} meter/sec </div>
+        <div class="humidity" id="humidity">Humidity:<br> {{main.humidity}}%</div>
+    </script>
+
+    <script id="errorTemplate" type="text/html">
+        <div class="warning" id="warning">{{message}} </div>
+    </script>
+</div>
+
+<div id="mocha"></div>
+<script src="responseExamples.js"></script>
+<script src="../src/index.js"></script>
+<script>
+    expect = chai.expect;
+
+    describe("smoke test", function () {
+        it('should run', function () {
+            expect(true).to.eql(true);
+        });
+    });
+
+    describe("submit form", function () {
+
+        it('checks if form exists', () => {
+            expect(document.getElementById('search')).to.exist;
+        });
+
+        it('checks if event handler registers an event', function () {
+            const formSubmitSpy = sinon.spy(window, "getWeatherForecast");
+            document.getElementById('search-button').click();
+            expect(formSubmitSpy.callCount).to.equal(1);
+            window.getWeatherForecast.restore();
+        });
+
+        it ('checks if required data passes to function', function(){
+            const cityName = "Surgut";
+            document.getElementById('cityName').value = cityName;
+
+            const formSubmitSpy = sinon.spy(window, "getData");
+
+            document.getElementById('search-button').click();
+            expect(formSubmitSpy.calledWithExactly(cityName));
+
+            window.getData.restore();
+        });
+    });
+
+    describe("getWeatherForecast", function () {
+        it('should call clear form while getting a weather forecast', function () {
+            const clearFormSpy = sinon.spy(window, "clearForm");
+
+            document.getElementById('search-button').click();
+            expect(clearFormSpy.callCount).to.equal(1);
+
+            window.clearForm.restore();
+        });
+
+/*
+        it('should call draw data if fetched data is ok', function(){
+            const response = fullExample();
+
+            sandbox.stub(fetch, 'getData').returns(response);
+
+            getData("Surgut")
+                .then((res) => {
+                    expect(res).to.eql(response)
+                })
+        });*/
+
+        it('should call drawing error message if fetched data is not ok', function(){
+
+        });
+
+        it('should call drawing error message if fetched data is empty', function(){
+
+        });
+    });
+
+    describe("getData", function () {
+        it('checks if weather api was called', function(){});
+
+        it('checks if results came from api are ok', function(){});
+    });
+
+    describe("createErrorMessage", function(){
+        it ('checks if error template draws correctly', function(){});
+    });
+
+    describe("drawData", function(){
+        it ('checks if data was drawn correctly', function(){});
+    });
+
+    describe("clearForm", function(){
+        it ('checks if data was cleared after calling clearForm function', function(){
+
+        });
+    })
+
+
+/*
+        it('should successfully return data for Syktyvkar', function (done) {
+            const response = fullExample();
+            const resolved = new Promise((r) => r(response));
+            sandbox.stub(axios, 'get').returns(resolved);
+
+            getCityData("Syktyvkar")
+                .then((res) => {
+                    expect(res).to.eql(response)
+                })
+                .then(done, done);
+        });
+
+        it('should handle the empty request option', function (done) {
+            const response = nothingToGeocodeData();
+            const rejected = new Promise((_, r) => r({ response: response }));
+            sandbox.stub(axios, 'get').returns(rejected);
+
+            getCityData("")
+                .then((res) => {
+                    expect(res).to.eql(response)
+                })
+                .then(done, done);
+        });
+
+        it('should handle the city ​​not found option', function (done) {
+            const response = cityNotFoundData();
+            const rejected = new Promise((_, r) => r({ response: response }));
+            sandbox.stub(axios, 'get').returns(rejected);
+
+            getCityData("sbfjbsdjfbsdjf")
+                .then((res) => {
+                    expect(res).to.eql(response)
+                })
+                .then(done, done);
+        });
+
+        it('should handle the invalid API key option', function (done) {
+            const response = invalidApiKeyData();
+            const rejected = new Promise((_, r) => r({response: response}));
+            sandbox.stub(axios, 'get').returns(rejected);
+
+            getCityData("Syktyvkar")
+                .then((res) => {
+                    expect(res).to.eql(response)
+                })
+                .then(done, done);
+        });
+
+        it('should handle the Network error option', function (done) {
+            const response = networkErrorData();
+            const rejected = new Promise((_, r) => r(networkErrorBody()));
+            sandbox.stub(axios, 'get').returns(rejected);
+
+            getCityData("Syktivkar")
+                .then((res) => {
+                    expect(res).to.eql(response)
+                })
+                .then(done, done);
+        });*/
+
+    /*
+    describe("formatData", function () {
+        it('should work correctly', function () {
+            let testResponse = formatData(dataExample());
+            expect(testResponse).to.eql(formattedResponse());
+        });
+    });
+
+    describe("compileTemplate", function () {
+        it('should return a formatted response if weather.status === 200', function () {
+            let testResponse = compileTemplate(fullExample());
+            expect(testResponse).to.eql(formattedResponse());
+        });
+
+        it('should return error response if weather.status !== 200', function () {
+            let testResponse = compileTemplate(errorExample());
+            expect(testResponse).to.eql(errorResponse());
+        });
+    });
+
+
+
+*/
+    mocha.run();
+</script>
+
+</body>
+</html>
